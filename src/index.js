@@ -6,23 +6,26 @@
 //  app.listen(PORT, () => {
 //    console.log(`Server is running on port ${PORT}`);
 //  });
- 
+ import cors from 'cors';
  import express from 'express';
+
   const app = express();
+
+  app.use(cors());
 
 app.get("/movies", (req, res) => {
     res.send([
         {
             title: 'film 1',
-            year: 2020
+            year: 2020,
         },
         {
             title: 'film 2',
-            year: 2024
+            year: 2024,
         }, 
         {
             title: 'film 3',
-            year: 2021
+            year: 2021,
         },
        
     ])
