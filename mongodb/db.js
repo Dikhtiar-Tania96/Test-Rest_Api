@@ -1,16 +1,12 @@
-import express from 'express';
-import { initDBConnection } from './db';
+import mongoose from 'mongoose';
 
-const app = express();
-
-async function bootstrap() {
-  try {
-    await initDBConnection();
-    app.listen(8080, () => {
-      console.log('Server started on port 8080');
-    });
-  } catch (error) {
-    console.error(error);
-  }
+async function initDBConnection() {
+    try {
+     await mongoose.connect(process.env.DB_URI)
+     console.log('Database connection successfully');
+    } catch (error) {
+        console.error(error)
+        // throw error
+    }
 }
-bootstrap();
+export {initDBConnection}

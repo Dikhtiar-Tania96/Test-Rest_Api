@@ -1,12 +1,34 @@
-import mongoose from 'mongoose';
+import 'dotenv/config';
 
-async function initDBConnection() {
-    try {
-     await mongoose.connect('mongodb+srv://student:qwerty12345@cluster123.zavoz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster123')
-     console.log('Database connection  successfully');
-    } catch (error) {
-        console.error(error)
-        throw error
-    }
+import express from 'express';
+import { initDBConnection } from './db.js';
+import { Student } from './models/students.js';
+
+const app = express();
+
+app.get('/students', async (req, res) => {
+  try {
+    const students  = await Student.find();//повертає масив усіх студентів
+    res.send({status:200, data: students})
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({message: 'Internal Server Error'})
+  }
+})
+
+app.get('/students/:id', (req, res) => {
+  const {id} = req.params;
+  
+})
+
+async function bootstrap() {
+  try {
+    await initDBConnection();
+    app.listen(8080, () => {
+      console.log('Server started on port 8080');
+    });
+  } catch (error) {
+    console.error(error);
+  }
 }
-export {initDBConnection}
+bootstrap();
