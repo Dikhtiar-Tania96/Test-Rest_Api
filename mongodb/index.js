@@ -16,9 +16,21 @@ app.get('/students', async (req, res) => {
   }
 })
 
-app.get('/students/:id', (req, res) => {
-  const {id} = req.params;
-  
+app.get('/students/:id', async (req, res) => {
+  try {
+    const {id} = req.params;
+    const studentId = await Student.findById(id)
+
+    if(studentId === null){
+      return res.status(404).send({status:404, message:'Student not found'})
+    }
+    res.send({status:200, data: studentId})
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({message: 'Internal Server Error'})
+
+  }
 })
 
 async function bootstrap() {

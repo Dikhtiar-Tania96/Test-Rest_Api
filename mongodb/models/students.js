@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { Schema } from 'mongoose';
 
 const studentSchema = new mongoose.Schema({
     name : {
@@ -22,7 +23,7 @@ const studentSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    timestamps: true
+    // timestamps: true
 
 });
 
