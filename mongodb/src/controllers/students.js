@@ -1,5 +1,4 @@
 import { getStudent, getStudents } from "../services/students";
-import
 
 export async function getStudentsController(req, res) {
         try {
