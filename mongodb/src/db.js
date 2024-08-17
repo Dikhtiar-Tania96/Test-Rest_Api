@@ -6,7 +6,8 @@ async function initDBConnection() {
      console.log('Database connection successfully');
     } catch (error) {
         console.error(error)
-        // throw error
+        throw error
     }
 }
 export {initDBConnection}
+ 

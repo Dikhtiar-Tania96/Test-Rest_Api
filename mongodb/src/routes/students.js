@@ -7,6 +7,6 @@ const router = express.Router()
 
 router.get('/', getStudentsController);
 
-  router.get('/:id', getStudentController)
+router.get('/:id', getStudentController)
   
   export default router;
