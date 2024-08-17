@@ -1,3 +1,4 @@
+import createHttpError from 'http-errors'
 import { getStudent, getStudents } from '../services/students.js';
 
 export async function getStudentsController(req, res) {
@@ -5,12 +6,12 @@ export async function getStudentsController(req, res) {
   res.send({ status: 200, data: students });
 }
 
-export async function getStudentController(req, res) {
+export async function getStudentController(req, res, next) {
   const { id } = req.params;
-  const studentId = await getStudent(id);
+  const student = await getStudent(id);
 
-  if (studentId === null) {
-    return res.status(404).send({ status: 404, message: 'Student not found' });
+  if (student === null) {
+    return next(createHttpError(404, "Student not found"));
   }
-  res.send({ status: 200, data: studentId });
+  res.send({ status: 200, data: student });
 }
