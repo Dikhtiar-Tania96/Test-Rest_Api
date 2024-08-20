@@ -5,6 +5,8 @@ import {notFoundHandler} from './middlewares/notFoundHandler.js'
 
 const app = express();
 
+// app.use(express.json()) перекинули у файл routes
+//!!!!самостійно прописати!!!цей middleware потрібен щоб з body розпарсити дані у форматі json(отримання даних нового студента з Postman)
 
 app.use('/students', studentsRoutes);
 

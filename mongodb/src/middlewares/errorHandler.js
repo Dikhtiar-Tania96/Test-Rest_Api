@@ -5,7 +5,7 @@ export async function errorHandler(error, req, res, next){
   if(isHttpError(error) === true){
     return res.status(error.status).send({
       status: error.status,
-      message: error.message
+      message: error.message,
     })
   }
   console.error(error);

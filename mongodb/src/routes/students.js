@@ -1,12 +1,24 @@
 import express from 'express';
-import {getStudentController} from '../controllers/students.js'
-import {getStudentsController} from '../controllers/students.js'
-import {ctrlWrapper} from '../utils/ctrlWrapper.js'
+import {
+  getStudentsController,
+  getStudentController,
+  createStudentController,
+  deleteStudentController,
+  updateStudentController
+} from '../controllers/students.js';
+import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 
-const router = express.Router()
+const router = express.Router();
+const jsonParser = express.json();
 
 router.get('/', ctrlWrapper(getStudentsController));
 
-router.get('/:id', ctrlWrapper(getStudentController))
-  
-  export default router;
+router.get('/:id', ctrlWrapper(getStudentController));
+
+router.post('/', jsonParser, ctrlWrapper(createStudentController));
+
+router.delete(':id', ctrlWrapper(deleteStudentController));
+
+router.put(':id', jsonParser, ctrlWrapper(updateStudentController))
+
+export default router;
