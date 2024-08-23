@@ -7,7 +7,7 @@ export async function errorHandler(error, req, res, next){
       status: error.status,
       message: error.message,
     })
-  }
+  };
   console.error(error);
   res.status(500).send({status:500, message: 'Internal Server Error'})//помилка зі сторони серверу
-}
+};
