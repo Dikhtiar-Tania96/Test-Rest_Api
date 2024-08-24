@@ -1,10 +1,11 @@
 import createHttpError from 'http-errors';
 
-function validateBody(schema) {
+export function validateBody(schema) {
   return (req, res, next) => {
+    console.log("validateBody!!!")
     const result = schema.validate(req.body, { abortEarly: false });
 
-    if (typeof result.error != 'undefined') {
+    if (typeof result.error !== 'undefined') {
       return next(
         createHttpError(
           400,
