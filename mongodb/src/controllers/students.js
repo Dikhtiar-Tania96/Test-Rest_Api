@@ -1,4 +1,7 @@
 import createHttpError from 'http-errors';
+
+import {parsePaginationParams} from '../utils/parsePaginationParams.js'
+
 import {
   getStudent,
   getStudents,
@@ -7,8 +10,11 @@ import {
   updateStudent,
 } from '../services/students.js';
 
+//код для пагінації
 export async function getStudentsController(req, res) {
-  const students = await getStudents(); //повертає масив усіх студентів
+ const {page, perPage} = parsePaginationParams(req.query);
+
+  const students = await getStudents({page, perPage}); //повертає масив усіх студентів
   res.send({ status: 200, data: students });
 }
 
