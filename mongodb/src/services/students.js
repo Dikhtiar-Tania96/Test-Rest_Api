@@ -1,11 +1,12 @@
 import { Student } from '../models/students.js';
 
 //пагінація
-export async function getStudents({page, perPage}){
+export async function getStudents({page, perPage, sortBy, sortOrder}){
 const skip = page > 0 ? (page - 1) * perPage : 0;
 
 const [students, count] = await Promise.all([
-    Student.find().skip(skip).limit(perPage),
+    Student.find().sort({[sortBy]:sortOrder}).skip(skip).limit(perPage),
+    // Student.find().sort({_id: "asc"}).skip(skip).limit(perPage),
     Student.countDocuments() 
 ]);
 

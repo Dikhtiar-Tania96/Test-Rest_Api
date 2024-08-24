@@ -1,6 +1,7 @@
 import createHttpError from 'http-errors';
 
-import {parsePaginationParams} from '../utils/parsePaginationParams.js'
+import { parsePaginationParams } from '../utils/parsePaginationParams.js';
+import { parseSortParams } from '../utils/parseSortParams.js';
 
 import {
   getStudent,
@@ -12,9 +13,10 @@ import {
 
 //код для пагінації
 export async function getStudentsController(req, res) {
- const {page, perPage} = parsePaginationParams(req.query);
+  const { page, perPage } = parsePaginationParams(req.query);
+  const { sortBy, sortOrder } = parseSortParams(req.query);
 
-  const students = await getStudents({page, perPage}); //повертає масив усіх студентів
+  const students = await getStudents({ page, perPage, sortBy, sortOrder }); //повертає масив усіх студентів
   res.send({ status: 200, data: students });
 }
 
@@ -30,13 +32,12 @@ export async function getStudentController(req, res, next) {
 
 export async function createStudentController(req, res) {
   const student = {
-    name: req.body.name, 
+    name: req.body.name,
     gender: req.body.gender,
     year: req.body.year,
     email: req.body.email,
   };
 
-  
   console.log({ result });
 
   const createdStudent = await createStudent(student);
