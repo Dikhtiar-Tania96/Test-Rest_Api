@@ -1,9 +1,27 @@
 import { Student } from '../models/students.js';
 
+//пагінація
+export async function getStudents({page, perPage}){
+const skip = page > 0 ? (page - 1) * perPage : 0;
 
-export function getStudents(){
-    return Student.find();
+const [students, count] = await Promise.all([
+    Student.find().skip(skip).limit(perPage),
+    Student.countDocuments() 
+]);
+
+//пагінація на сторінки
+const totalPages = Math.ceil(count/perPage);
+
+    return {
+        students,
+        page,
+        perPage,
+        totalItems: count,
+        hasNextPage: totalPages - page > 0,
+        hasPreviousPage: page > 1,
+    }
 }
+
 
 export function getStudent(studentId){
     return Student.findById(studentId)
