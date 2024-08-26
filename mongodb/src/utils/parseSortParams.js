@@ -35,4 +35,4 @@ return {
     sortBy: parseSortBy,
     sortOrder: parseSortOrder
 };
-};
+}; 
